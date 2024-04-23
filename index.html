@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slate.js Text Field Manipulation</title>
+    <style>
+        #slateTextField {
+            width: 300px;
+            height: 150px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            overflow-y: auto;
+        }
+        button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <textarea id="slateTextField" contenteditable="true"></textarea>
+        <br>
+        <button onclick="insertText()">Insert Text</button>
+        <button onclick="getTextContent()">Get Text Content</button>
+        <button onclick="getCurrentSelection()">Get Current Selection</button>
+        <button onclick="deleteSelection()">Delete Selection</button>
+        <button onclick="selectText()">Select Text</button>
+        <button onclick="moveCursorTo()">Move Cursor To</button>
+        <button onclick="clearSelection()">Clear Selection</button>
+        <button onclick="replaceSelection()">Replace Selection</button>
+    </div>
+
+    <script>
+        // Instantiate the SlateTextFieldManipulator class
+        const textFieldManipulator = new SlateTextFieldManipulator(document.getElementById('slateTextField'));
+
+        function insertText() {
+            const start = parseInt(prompt('Enter start index:'));
+            const end = parseInt(prompt('Enter end index:'));
+            const text = prompt('Enter text:');
+            textFieldManipulator.insertText(start, end, text);
+        }
+
+        function getTextContent() {
+            alert('Text Content:\n' + textFieldManipulator.getTextContent());
+        }
+
+        function getCurrentSelection() {
+            const selection = textFieldManipulator.getCurrentSelection();
+            alert('Current Selection:\nStart: ' + selection.start + '\nEnd: ' + selection.end + '\nText: ' + selection.text);
+        }
+
+        function deleteSelection() {
+            textFieldManipulator.deleteSelection();
+        }
+
+        function selectText() {
+            const start = parseInt(prompt('Enter start index:'));
+            const end = parseInt(prompt('Enter end index:'));
+            textFieldManipulator.selectText(start, end);
+        }
+
+        function moveCursorTo() {
+            const position = parseInt(prompt('Enter cursor position:'));
+            textFieldManipulator.moveCursorTo(position);
+        }
+
+        function clearSelection() {
+            textFieldManipulator.clearSelection();
+        }
+
+        function replaceSelection() {
+            const text = prompt('Enter replacement text:');
+            textFieldManipulator.replaceSelection(text);
+        }
+    </script>
+</body>
+</html>
